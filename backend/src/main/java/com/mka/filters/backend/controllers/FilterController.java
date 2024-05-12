@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.mka.filters.backend.dtos.filter.FilterCreationDto;
 import com.mka.filters.backend.dtos.filter.FilterDto;
-import com.mka.filters.backend.services.FilterServiceImpl;
+import com.mka.filters.backend.services.FilterService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,39 +22,64 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@RestController
+
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/filters")
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class FilterController {
 
-    private final FilterServiceImpl filterService;
+    @Autowired
+    private final FilterService filterService;
 
-    @GetMapping
+
+    @GetMapping("/filters")
     public ResponseEntity<List<FilterDto>> allFilters() {
-        return ResponseEntity.ok(filterService.allFilters());
+        try{
+            return ResponseEntity.ok(filterService.allFilters());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/filters/{id}")
     public ResponseEntity<FilterDto> getFilter(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(filterService.getFilter(id));
+        try {
+            return ResponseEntity.ok(filterService.getFilter(id));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping
+
+    @PostMapping("/filters")
     public ResponseEntity<FilterDto> addFilter(@RequestBody FilterCreationDto filterDto) {
-        FilterDto addedFilter = filterService.addFilter(filterDto);
-        return ResponseEntity.created(URI.create("/filters/" + addedFilter.getId())).body(addedFilter);
+        try {
+            FilterDto addedFilter = filterService.addFilter(filterDto);
+            return ResponseEntity.created(URI.create("/filters/" + addedFilter.getId())).body(addedFilter);
+        } catch (IllegalStateException | IllegalArgumentException i) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @PutMapping("/{id}")
+
+    @PutMapping("/filters/{id}")
     public ResponseEntity<FilterDto> updateFilter(@RequestBody FilterDto filterDto) {
         FilterDto updatedFilter = filterService.updateFilter(filterDto);
         return ResponseEntity.ok(updatedFilter);
     }
 
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/filters/{id}")
     public ResponseEntity<?> deleteFilter(@PathVariable("id") Long id) {
-        filterService.deleteFilter(id);
-        return ResponseEntity.noContent().build();
+        try {
+            filterService.deleteFilter(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
