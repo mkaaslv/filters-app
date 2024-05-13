@@ -1,0 +1,33 @@
+<div class="table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="selection">
+        <mat-header-cell *matHeaderCellDef> Selection </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.selection}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="createdDate">
+        <mat-header-cell *matHeaderCellDef> Created date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.createdDate}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="modifiedDate">
+        <mat-header-cell *matHeaderCellDef> Modified date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.modifiedDate}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  

@@ -1,0 +1,13 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    padding:1%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+  
