@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Filter } from './filter';
+import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { Filter } from '../../types';
+import { FiltersService } from '../services/filters.service';
 
 @Component({
   selector: 'filters-list',
   standalone: true,
   imports: [MatTableModule],
   templateUrl: './filters-list.component.html',
-  styleUrl: './filters-list.component.css'
+  styleUrl: './filters-list.component.css',
 })
-export class FiltersListComponent implements OnInit {
+export class FiltersListComponent {
   displayedColumns = ['id', 'name', 'selection', 'createdDate', 'modifiedDate'];
   dataSource = FILTERS;
 
-  constructor() {}
+  constructor(private filtersService: FiltersService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.filtersService
+      .getFilters('http://localhost:8080/api/v1/filters')
+      .subscribe((filters) => {
+        console.log(filters);
+      });
   }
 }
 
@@ -30,10 +36,10 @@ const FILTERS: Filter[] = [
         filterId: 1,
         criteriaType: 1,
         operator: 'MORE_THAN',
-        value: 10
-      }
+        value: 10,
+      },
     ],
     createdDate: new Date().getDate().toString(),
-    modifiedDate: null
-  }
+    modifiedDate: null,
+  },
 ];
