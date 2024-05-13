@@ -16,6 +16,8 @@ import com.mka.filters.backend.repositories.CriteriaRepository;
 import com.mka.filters.backend.repositories.FilterRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +49,7 @@ public class FilterService implements IFilterService {
         //     allFilterDtos.add(filterDto);
         // }
 
-        return filterMapper.toFilterDtos(allFilters);
+        return filterMapper.toDtoList(allFilters);
     }
 
     public FilterDto getFilter(Long id) {
@@ -56,14 +58,14 @@ public class FilterService implements IFilterService {
 
         // List<Criteria> criteriaList = criteriaDao.findByFilter(filter);
         // List<CriteriaDto> criteriaDtos = criteriaMapper.toCriteriaDtos(criteriaList);
-        FilterDto filterDto = filterMapper.toFilterDto(filter);
+        FilterDto filterDto = filterMapper.toDto(filter);
         // filterDto.setCriterias(criteriaDtos);
 
         return filterDto;
     }
 
     public FilterDto addFilter(FilterCreationDto newFilterDto) {
-        Filter filter = filterMapper.toFilter(newFilterDto);
+        Filter filter = filterMapper.toEntity(newFilterDto);
 
         // First save children
         List<Criteria> criteriaList = criteriaDao.findByFilter(filter);
@@ -79,7 +81,7 @@ public class FilterService implements IFilterService {
     
         // Map enitities back to dtos
         // List<CriteriaDto> criteriaDtos = criteriaMapper.toCriteriaDtos(createdCriterias);
-        FilterDto filterDto = filterMapper.toFilterDto(createdFilter);
+        FilterDto filterDto = filterMapper.toDto(createdFilter);
         // filterDto.setCriterias(criteriaDtos);
 
         return filterDto;
@@ -102,6 +104,17 @@ public class FilterService implements IFilterService {
                 throw new NotFoundException(String.format("Filter not found with id %o", id), HttpStatus.NOT_FOUND);
             }
         );
+    }
+
+    @Override
+    public Page<FilterDto> findPaginated(int page, int size) {
+        Page<Filter> filterPage = filterDao.findAll(PageRequest.of(page, size));
+        Page<FilterDto> filterDtoPage = filterPage.map(filter -> {
+            FilterDto dto = filterMapper.toDto(filter);
+            return dto;
+        });
+        
+        return filterDtoPage;
     }
     
 }
