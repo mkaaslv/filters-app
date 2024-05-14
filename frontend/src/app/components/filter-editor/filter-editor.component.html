@@ -1,0 +1,41 @@
+<div *ngIf="criteriaTypes.length > 0">
+  <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Filter name</mat-label>
+      <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+
+    <div>
+      <div formArrayName="criterias">
+        <div
+          *ngFor="
+            let criteria of getCriteriaControls('criterias');
+            let i = index
+          "
+          class="criteria-row"
+        >
+          <app-criteria-row
+            [criteriaForm]="criteria"
+            [criteriaTypes]="criteriaTypes"
+          ></app-criteria-row>
+          <button mat-raised-button type="button" (click)="removeCriteria(i)">
+            -
+          </button>
+        </div>
+      </div>
+      <button mat-button type="button" (click)="addCriteria()">
+        Add Criteria
+      </button>
+    </div>
+
+    <mat-radio-group formControlName="selection">
+      <mat-radio-button value="1">a</mat-radio-button>
+      <mat-radio-button value="2">b</mat-radio-button>
+      <mat-radio-button value="3">c</mat-radio-button>
+    </mat-radio-group>
+
+    <div>
+      <button mat-raised-button type="submit">Save</button>
+    </div>
+  </form>
+</div>

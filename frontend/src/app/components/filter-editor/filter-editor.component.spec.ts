@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterViewComponent } from './filter-view.component';
+import { FilterEditorComponent } from './filter-editor.component';
 
-describe('FilterViewComponent', () => {
-  let component: FilterViewComponent;
-  let fixture: ComponentFixture<FilterViewComponent>;
+describe('FilterEditorComponent', () => {
+  let component: FilterEditorComponent;
+  let fixture: ComponentFixture<FilterEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterViewComponent]
+      imports: [FilterEditorComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FilterViewComponent);
+    fixture = TestBed.createComponent(FilterEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

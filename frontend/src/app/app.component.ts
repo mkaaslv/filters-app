@@ -1,8 +1,9 @@
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FiltersListComponent } from './filters-list/filters-list.component';
 import { MatTableModule } from '@angular/material/table';
-import { FilterViewComponent } from './filter-view/filter-view.component';
+import { RouterOutlet } from '@angular/router';
+import { AddFilterButtonComponent } from './components/add-filter-button/add-filter-button.component';
+import { FiltersListComponent } from './filters-list/filters-list.component';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,9 @@ import { FilterViewComponent } from './filter-view/filter-view.component';
   imports: [
     RouterOutlet,
     MatTableModule,
+    CommonModule,
     FiltersListComponent,
-    FilterViewComponent,
+    AddFilterButtonComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

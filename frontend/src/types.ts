@@ -55,7 +55,13 @@ export interface Criteria {
 export interface CriteriaType {
   id: number;
   label: string;
-  operators: string[];
+  fieldType: string;
+  operators: Operator[];
+}
+
+export interface Operator {
+  operator: string;
+  label: string;
 }
 
 export interface PaginationParams {

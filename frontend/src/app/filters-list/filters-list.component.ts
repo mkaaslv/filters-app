@@ -1,28 +1,30 @@
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Filter } from '../../types';
 import { FiltersService } from '../services/filters.service';
 
 @Component({
   selector: 'filters-list',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [MatTableModule, MatButtonModule, MatIconModule],
   templateUrl: './filters-list.component.html',
   styleUrl: './filters-list.component.css',
 })
 export class FiltersListComponent {
-  displayedColumns = ['id', 'name', 'selection', 'createdDate', 'modifiedDate'];
+  displayedColumns = ['id', 'name', 'selection', 'createdDate', 'modifiedDate', 'actions'];
   dataSource = FILTERS;
 
   constructor(private filtersService: FiltersService) {}
 
-  ngOnInit() {
-    this.filtersService
-      .getFilters('http://localhost:8080/api/v1/filters')
-      .subscribe((filters) => {
-        console.log(filters);
-      });
-  }
+  // ngOnInit() {
+  //   this.filtersService
+  //     .getFilters('http://localhost:8080/api/v1/filters')
+  //     .subscribe((filters) => {
+  //       console.log(filters);
+  //     });
+  // }
 }
 
 const FILTERS: Filter[] = [

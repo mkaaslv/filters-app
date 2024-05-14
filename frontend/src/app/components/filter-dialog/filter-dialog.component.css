@@ -1,0 +1,11 @@
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: white;
+}
+
+.dialog-header {
+    background-color: #5EBECD;
+    color:white;
+}
