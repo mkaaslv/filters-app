@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/criteria-types")
+@RequestMapping("/api/v1/criteria-types")
 public class CriteriaTypeController {
 
     @GetMapping

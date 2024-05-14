@@ -1,22 +1,26 @@
 package com.mka.filters.backend.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mka.filters.backend.enums.interfaces.IOperator;
 
 import lombok.Getter;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum CriteriaType {
-    NUMBER(1, "Amount", NumberOperator.values()),
-    TEXT(2, "Title", TextOperator.values()),
-    DATE(3, "Date", DateOperator.values());
+public enum CriteriaType{
+    NUMBER(1,"Amount", "number", NumberOperator.values()),
+    TEXT(2, "Title", "text", TextOperator.values()),
+    DATE(3, "Date", "date", DateOperator.values());
 
     private final int id;
     private final String label;
+    private final String fieldType;
     private final IOperator[] operators;
 
-    CriteriaType(int id, String label, IOperator[] operators) {
+    CriteriaType(int id, String label, String fieldType, IOperator[] operators) {
         this.id = id;
         this.label = label;
+        this.fieldType = fieldType;
         this.operators = operators;
     }
 

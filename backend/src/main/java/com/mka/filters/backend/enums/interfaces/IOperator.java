@@ -4,9 +4,8 @@ public interface IOperator {
     // Apply the operator on two operands and return the result
     boolean apply(Object operand1, Object operand2);
 
-    // Get a human-readable representation of the operator
-    String getDescriptor();
+    String getLabel();
 
-    // Get the operator
     String getOperator();
+
 }

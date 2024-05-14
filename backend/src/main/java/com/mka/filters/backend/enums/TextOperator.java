@@ -1,33 +1,35 @@
 package com.mka.filters.backend.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mka.filters.backend.enums.interfaces.IOperator;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TextOperator implements IOperator {
-    CONTAINS("contains", "Contains") {
+    CONTAINS("CONTAINS", "Contains") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return operand1.toString().contains(operand2.toString());
         }
     },
-    NOT_CONTAINS("notContains", "Does not contain") {
+    NOT_CONTAINS("NOT_CONTAINS", "Does not contain") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return !operand1.toString().contains(operand2.toString());
         }
     },
-    STARTS_WITH("startsWith", "Starts with") {
+    STARTS_WITH("STARTS_WITH", "Starts with") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return operand1.toString().startsWith(operand2.toString());
         }
     },
-    ENDS_WITH("endsWith", "Ends with") {
+    ENDS_WITH("ENDS_WITH", "Ends with") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return operand1.toString().endsWith(operand2.toString());
         }
     },
-    MATCHES("matches", "Matches") {
+    MATCHES("MATCHES", "Matches") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return operand1.toString().matches(operand2.toString());
@@ -35,16 +37,16 @@ public enum TextOperator implements IOperator {
     };
 
     private final String operator;
-    private final String descriptor;
+    private final String label;
 
-    TextOperator(String operator, String descriptor) {
+    TextOperator(String operator, String label) {
         this.operator = operator;
-        this.descriptor = descriptor;
+        this.label = label;
     }
 
     @Override
-    public String getDescriptor() {
-        return descriptor;
+    public String getLabel() {
+        return label;
     }
 
     @Override

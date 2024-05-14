@@ -2,28 +2,24 @@ package com.mka.filters.backend.enums;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mka.filters.backend.enums.interfaces.IOperator;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum DateOperator implements IOperator {
-    FROM(">=", "From") {
-        @Override
-        public boolean apply(Object operand1, Object operand2) {
-            return compareDates((Date) operand1, (Date) operand2) >= 0;
-        }
-    },
-    BEFORE("<", "Before") {
+    BEFORE("BEFORE", "Before") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return compareDates((Date) operand1, (Date) operand2) < 0;
         }
     },
-    AFTER(">", "After") {
+    AFTER("AFTER", "After") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return compareDates((Date) operand1, (Date) operand2) > 0;
         }
     },
-    ON_DATE("==", "On") {
+    ON_DATE("ON_DATE", "On") {
         @Override
         public boolean apply(Object operand1, Object operand2) {
             return compareDates((Date) operand1, (Date) operand2) == 0;
@@ -31,21 +27,21 @@ public enum DateOperator implements IOperator {
     };
 
     private final String operator;
-    private final String descriptor;
+    private final String label;
 
-    DateOperator(String operator, String descriptor) {
+    DateOperator(String operator, String label) {
         this.operator = operator;
-        this.descriptor = descriptor;
-    }
-
-    @Override
-    public String getDescriptor() {
-        return descriptor;
+        this.label = label;
     }
 
     @Override
     public String getOperator() {
         return operator;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 
     // Helper method to compare dates
