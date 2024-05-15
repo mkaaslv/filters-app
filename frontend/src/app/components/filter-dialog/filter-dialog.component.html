@@ -1,9 +1,27 @@
-<h2 class="dialog-header" mat-dialog-title>
-  Filter Dialog
-  <button class="close-button" mat-icon-button mat-dialog-close aria-label="Close">
-    <mat-icon>close</mat-icon>
-  </button>
-</h2>
-<div mat-dialog-content>
-  <app-filter-editor></app-filter-editor>
+<header>
+  <h2
+    class="dialog-header"
+    mat-dialog-title
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+  >
+    Filter Dialog
+    <button
+      class="close-button"
+      mat-icon-button
+      mat-dialog-close
+      aria-label="Close"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+</header>
+<div mat-dialog-content class="content">
+  <app-filter-editor [id]="filterId"></app-filter-editor>
 </div>
+<footer>
+  <div class=p-3>
+    <button form="filterFormId" mat-raised-button color="accent">Save</button>
+  </div>
+</footer>

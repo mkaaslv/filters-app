@@ -40,8 +40,7 @@ export interface Filter {
   name: string;
   selection: number;
   criterias: Criteria[];
-  createdDate: string;
-  modifiedDate: string | null;
+  modifiedDate: string;
 }
 
 export interface Criteria {

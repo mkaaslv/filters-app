@@ -1,41 +1,98 @@
-<div *ngIf="criteriaTypes.length > 0">
-  <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>Filter name</mat-label>
-      <input matInput placeholder="Name" formControlName="name" />
-    </mat-form-field>
-
-    <div>
-      <div formArrayName="criterias">
-        <div
-          *ngFor="
-            let criteria of getCriteriaControls('criterias');
-            let i = index
-          "
-          class="criteria-row"
-        >
-          <app-criteria-row
-            [criteriaForm]="criteria"
-            [criteriaTypes]="criteriaTypes"
-          ></app-criteria-row>
-          <button mat-raised-button type="button" (click)="removeCriteria(i)">
-            -
-          </button>
+<div *ngIf="criteriaTypes.length > 0 || (id && filter)">
+  <form
+    [formGroup]="filterForm"
+    (ngSubmit)="onSubmit()"
+    id="filterFormId"
+    #documentEditForm="ngForm"
+  >
+    <input type="hidden" formControlName="id" />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <label for="name-field">Filter name</label>
+        </div>
+        <div class="col-md-10">
+          <mat-form-field appearance="outline">
+            <input
+              id="name-field"
+              matInput
+              placeholder="Name"
+              formControlName="name"
+            />
+          </mat-form-field>
         </div>
       </div>
-      <button mat-button type="button" (click)="addCriteria()">
-        Add Criteria
-      </button>
-    </div>
 
-    <mat-radio-group formControlName="selection">
-      <mat-radio-button value="1">a</mat-radio-button>
-      <mat-radio-button value="2">b</mat-radio-button>
-      <mat-radio-button value="3">c</mat-radio-button>
-    </mat-radio-group>
+      <div class="row pt-3">
+        <div class="col-md-2">
+          <label>Criteria</label>
+        </div>
+        <div class="col-md-10">
+          <div class="container px-0">
+            <div class="row">
+              <div class="col">
+                <div formArrayName="criterias">
+                  <div
+                    *ngFor="
+                      let criteria of getCriteriaControls('criterias');
+                      let i = index
+                    "
+                    class="criteria-row"
+                  >
+                    <div class="container px-0">
+                      <div class="row">
+                        <div class="col-lg-10 pl-0">
+                          <app-criteria-row
+                            [criteriaForm]="criteria"
+                            [criteriaTypes]="criteriaTypes"
+                          ></app-criteria-row>
+                        </div>
 
-    <div>
-      <button mat-raised-button type="submit">Save</button>
+                        <div class="col-lg-2 pr-0">
+                          <button
+                            mat-flat-button
+                            color="warn"
+                            type="button"
+                            (click)="removeCriteria(i)"
+                          >
+                            <mat-icon>remove</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  type="button"
+                  (click)="addCriteria()"
+                >
+                  <mat-icon>add</mat-icon>Add Criteria
+                </button>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-3">
+        <div class="col-md-2">
+          <label for="selection-id">Selection</label>
+        </div>
+        <div class="col-md-10">
+          <mat-radio-group id="selection-id" formControlName="selection">
+            <mat-radio-button value="1">a</mat-radio-button>
+            <mat-radio-button value="2">b</mat-radio-button>
+            <mat-radio-button value="3">c</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
     </div>
   </form>
 </div>

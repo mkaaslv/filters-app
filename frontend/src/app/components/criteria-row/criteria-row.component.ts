@@ -5,6 +5,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { CriteriaType, Operator } from '../../../types';
 
 @Component({
@@ -18,13 +19,13 @@ import { CriteriaType, Operator } from '../../../types';
     MatOptionModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatGridListModule,
     ReactiveFormsModule,
   ],
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css',
 })
 export class CriteriaRowComponent implements OnChanges {
-
   @Input() criteriaForm!: FormGroup;
   @Input() criteriaTypes: CriteriaType[] = [];
 
@@ -34,7 +35,7 @@ export class CriteriaRowComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['criteriaForm'] && changes['criteriaForm'].currentValue){
+    if (changes['criteriaForm'] && changes['criteriaForm'].currentValue) {
       this.setRowFieldProperties(1);
     }
   }

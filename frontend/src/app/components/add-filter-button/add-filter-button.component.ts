@@ -8,7 +8,7 @@ import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component'
   standalone: true,
   imports: [FilterDialogComponent, MatButtonModule],
   templateUrl: './add-filter-button.component.html',
-  styleUrl: './add-filter-button.component.css'
+  styleUrl: './add-filter-button.component.css',
 })
 export class AddFilterButtonComponent {
   constructor(private dialog: MatDialog) { }

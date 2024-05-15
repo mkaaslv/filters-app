@@ -1,36 +1,46 @@
 <div [formGroup]="criteriaForm" class="criteria-row">
-  <mat-form-field>
-    <mat-select formControlName="criteriaType" required>
-      <mat-option *ngFor="let type of criteriaTypes" [value]="type.id">{{
-        type.label
-      }}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="criteriaForm.get('criteriaType')?.hasError('required')"
-      >Criteria Type is required</mat-error
-    >
-  </mat-form-field>
+  <div class="container px-0">
+    <div class="row">
+      <div class="col-lg-4 pl-0">
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="criteriaType" required>
+            <mat-option *ngFor="let type of criteriaTypes" [value]="type.id">{{
+              type.label
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="criteriaForm.get('criteriaType')?.hasError('required')"
+            >Criteria Type is required</mat-error
+          >
+        </mat-form-field>
+      </div>
 
-  <mat-form-field>
-    <mat-label>Operator</mat-label>
-    <mat-select formControlName="operator" required>
-      <mat-option *ngFor="let op of operators" [value]="op.operator">{{
-        op.label
-      }}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="criteriaForm.get('operator')?.hasError('required')"
-      >Operator is required</mat-error
-    >
-  </mat-form-field>
+      <div class="col-lg-4">
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="operator" required>
+            <mat-option *ngFor="let op of operators" [value]="op.operator">{{
+              op.label
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="criteriaForm.get('operator')?.hasError('required')"
+            >Operator is required</mat-error
+          >
+        </mat-form-field>
+      </div>
 
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Value"
-      formControlName="value"
-      [type]="valueFieldType"
-    />
-    <mat-error *ngIf="criteriaForm.get('value')?.hasError('required')"
-      >Value is required.</mat-error
-    >
-  </mat-form-field>
+      <div class="col-lg-4 pr-0">
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            placeholder="Value"
+            formControlName="value"
+            [type]="valueFieldType"
+          />
+          <mat-error *ngIf="criteriaForm.get('value')?.hasError('required')"
+            >Value is required.</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
 </div>
