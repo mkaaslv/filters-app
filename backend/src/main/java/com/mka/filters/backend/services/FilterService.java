@@ -39,16 +39,6 @@ public class FilterService implements IFilterService {
 
     public List<FilterDto> allFilters() {
         List<Filter> allFilters = filterDao.findAll();
-        // List<FilterDto> allFilterDtos = new ArrayList<>();
-
-        // for (Filter filter : allFilters) {
-        //     List<Criteria> criteriaList = criteriaDao.findByFilter(filter);
-        //     List<CriteriaDto> criteriaDtos = criteriaMapper.toCriteriaDtos(criteriaList);
-        //     FilterDto filterDto = filterMapper.toFilterDto(filter);
-        //     filterDto.setCriterias(criteriaDtos);
-        //     allFilterDtos.add(filterDto);
-        // }
-
         return filterMapper.toDtoList(allFilters);
     }
 
@@ -56,35 +46,25 @@ public class FilterService implements IFilterService {
         Filter filter = filterDao.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Filter not found with id %o", id), HttpStatus.NOT_FOUND));
 
-        // List<Criteria> criteriaList = criteriaDao.findByFilter(filter);
-        // List<CriteriaDto> criteriaDtos = criteriaMapper.toCriteriaDtos(criteriaList);
-        FilterDto filterDto = filterMapper.toDto(filter);
-        // filterDto.setCriterias(criteriaDtos);
-
-        return filterDto;
+        return filterMapper.toDto(filter);
     }
 
     public FilterDto addFilter(FilterCreationDto newFilterDto) {
         Filter filter = filterMapper.toEntity(newFilterDto);
+        List<Criteria> criteriaList = filter.getCriterias();
 
-        // First save children
-        List<Criteria> criteriaList = criteriaDao.findByFilter(filter);
+        filter.setCriterias(new ArrayList<>());
+        Filter createdFilter = filterDao.save(filter);
+        
         List<Criteria> createdCriterias = new ArrayList<>();
         for (Criteria criteria : criteriaList) {
+            criteria.setFilter(createdFilter);
             Criteria createdCriteria = criteriaDao.save(criteria);
             createdCriterias.add(createdCriteria);
         }
 
-        // Save Filter
-        filter.setCriterias(createdCriterias);
-        Filter createdFilter = filterDao.save(filter);
-    
-        // Map enitities back to dtos
-        // List<CriteriaDto> criteriaDtos = criteriaMapper.toCriteriaDtos(createdCriterias);
-        FilterDto filterDto = filterMapper.toDto(createdFilter);
-        // filterDto.setCriterias(criteriaDtos);
-
-        return filterDto;
+        createdFilter.setCriterias(createdCriterias);
+        return filterMapper.toDto(createdFilter);
     }
 
     public FilterDto updateFilter(FilterDto filterDto) {

@@ -29,6 +29,5 @@ public class CriteriaDto {
 
     private String value;
 
-    private Date createdDate;
     private Date modifiedDate;
 }

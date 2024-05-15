@@ -15,12 +15,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CriteriaCreationDto {
 
-    private Long id;
-
-    @ManyToOne()
-    @JoinColumn(name = "filter_id")
-    private FilterDto filter;
-
     private int criteriaType;
 
     private String operator;

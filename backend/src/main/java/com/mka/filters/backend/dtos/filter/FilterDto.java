@@ -28,6 +28,5 @@ public class FilterDto {
 
     private List<CriteriaDto> criterias;
 
-    private Date createdDate;
     private Date modifiedDate;
 }

@@ -19,7 +19,7 @@ public class FilterCreationDto {
     @Nonnull
     private String name;
 
-    private int selection;
+    private String selection;
 
     private List<CriteriaDto> criterias;
 }

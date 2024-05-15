@@ -16,6 +16,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -57,4 +59,15 @@ public class Filter {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = new Date();
+        modifiedDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        modifiedDate = new Date();
+    }
 }
