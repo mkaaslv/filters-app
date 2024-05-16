@@ -22,8 +22,10 @@ public interface CriteriaMapper extends IBaseMapper<Criteria, CriteriaDto> {
     @Mapping(target = "modifiedDate", ignore = true)
     Criteria toEntity(CriteriaDto criteriaDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "filter", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
+    @Mapping(target = "modifiedDate", ignore = true)
     Criteria toEntity(CriteriaCreationDto criteriaDto);
 
     @Override

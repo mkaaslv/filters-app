@@ -1,9 +1,5 @@
 package com.mka.filters.backend.dtos.criteria;
 
-import com.mka.filters.backend.dtos.filter.FilterDto;
-
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

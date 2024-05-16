@@ -19,6 +19,8 @@ public interface FilterMapper extends IBaseMapper<Filter, FilterDto> {
     @Mapping(target = "modifiedDate", ignore = true)
     Filter toEntity(FilterDto filterDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
+    @Mapping(target = "modifiedDate", ignore = true)
     Filter toEntity(FilterCreationDto newFilterDto);
 }
