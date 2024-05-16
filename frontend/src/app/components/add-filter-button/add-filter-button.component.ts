@@ -14,6 +14,9 @@ export class AddFilterButtonComponent {
   constructor(private dialog: MatDialog) { }
 
   openFilterDialog(): void {
-    this.dialog.open(FilterDialogComponent);
+    this.dialog.open(FilterDialogComponent, {
+      width: '75%',
+      height: '65vh'
+    });
   }
 }

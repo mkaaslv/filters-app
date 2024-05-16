@@ -1,11 +1,29 @@
-.close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+.cancel-btn {
+  background-color: var(--secondary-color);
   color: white;
 }
 
-.dialog-header {
-    background-color: #5EBECD;
-    color:white;
+.close-button {
+  position: absolute;
+  top: 0.05rem;
+  right: 0.25rem;
+  color: white;
+}
+
+.header {
+  background-color: #5ebecd;
+}
+
+.dialog-title {
+  color: white;
+  font-weight: 500;
+}
+
+.footer {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+.close-icon {
+  transform: scale(1.25);
 }

@@ -1,45 +1,71 @@
-<div [formGroup]="criteriaForm" class="criteria-row">
+<div [formGroup]="criteriaForm" class="criteria-row pb-3">
   <div class="container px-0">
     <div class="row">
-      <div class="col-lg-4 pl-0">
-        <mat-form-field appearance="outline">
-          <mat-select formControlName="criteriaType" required>
-            <mat-option *ngFor="let type of criteriaTypes" [value]="type.id">{{
-              type.label
-            }}</mat-option>
-          </mat-select>
-          <mat-error
+      <div class="col-sm px-0">
+        <div class="form-group">
+          <select
+            class="form-select form-control"
+            formControlName="criteriaType"
+            required
+          >
+            <option *ngFor="let type of criteriaTypes" [value]="type.id">
+              {{ type.label }}
+            </option>
+          </select>
+          <div
             *ngIf="criteriaForm.get('criteriaType')?.hasError('required')"
-            >Criteria Type is required</mat-error
+            class="invalid-feedback"
           >
-        </mat-form-field>
+            Criteria Type is required
+          </div>
+        </div>
       </div>
 
-      <div class="col-lg-4">
-        <mat-form-field appearance="outline">
-          <mat-select formControlName="operator" required>
-            <mat-option *ngFor="let op of operators" [value]="op.operator">{{
-              op.label
-            }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="criteriaForm.get('operator')?.hasError('required')"
-            >Operator is required</mat-error
+      <div class="col-sm pe-0">
+        <div class="form-group">
+          <select
+            class="form-select form-control"
+            formControlName="operator"
+            required
           >
-        </mat-form-field>
+            <option *ngFor="let op of operators" [value]="op.operator">
+              {{ op.label }}
+            </option>
+          </select>
+          <div
+            *ngIf="criteriaForm.get('operator')?.hasError('required')"
+            class="invalid-feedback"
+          >
+            Operator is required
+          </div>
+        </div>
       </div>
 
-      <div class="col-lg-4 pr-0">
-        <mat-form-field appearance="outline">
+      <div class="col-sm">
+        <div class="form-group">
           <input
-            matInput
+            [type]="valueFieldType"
+            class="form-control"
+            id="value"
             placeholder="Value"
             formControlName="value"
-            [type]="valueFieldType"
           />
-          <mat-error *ngIf="criteriaForm.get('value')?.hasError('required')"
-            >Value is required.</mat-error
+          <div
+            *ngIf="criteriaForm.get('value')?.hasError('required')"
+            class="invalid-feedback"
           >
-        </mat-form-field>
+            Value is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1 px-0">
+        <button
+        class="custom-flat-button"
+        type="button"
+        (click)="onRemove()"
+      >
+        <mat-icon class="remove-icon">remove</mat-icon>
+      </button>
       </div>
     </div>
   </div>

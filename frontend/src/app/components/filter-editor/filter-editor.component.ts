@@ -1,6 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import {
-  Component, Input
+  Component, Input,
+  ViewChild
 } from '@angular/core';
 import {
   FormArray,

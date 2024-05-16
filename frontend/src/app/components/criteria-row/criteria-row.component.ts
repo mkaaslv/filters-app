@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CriteriaType, Operator } from '../../../types';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-criteria-row',
@@ -15,7 +17,9 @@ import { CriteriaType, Operator } from '../../../types';
     NgFor,
     NgIf,
     CommonModule,
+    MatIconModule,
     MatInputModule,
+    MatButtonModule,
     MatOptionModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -25,20 +29,15 @@ import { CriteriaType, Operator } from '../../../types';
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css',
 })
-export class CriteriaRowComponent implements OnChanges {
+export class CriteriaRowComponent {
   @Input() criteriaForm!: FormGroup;
   @Input() criteriaTypes: CriteriaType[] = [];
+  @Output() remove = new EventEmitter<void>();
 
   valueFieldType: string = 'text';
   operators: Operator[] = [];
 
   constructor() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['criteriaForm'] && changes['criteriaForm'].currentValue) {
-      this.setRowFieldProperties(1);
-    }
-  }
 
   ngOnInit(): void {
     const criteriaTypeControl = this.criteriaForm.get('criteriaType');
@@ -47,7 +46,7 @@ export class CriteriaRowComponent implements OnChanges {
     }
     // Listen for changes on the criteriaType form control
     this.criteriaForm.get('criteriaType')?.valueChanges.subscribe((value) => {
-      this.setRowFieldProperties(value);
+      this.setRowFieldProperties(+value);
     });
   }
 
@@ -55,9 +54,14 @@ export class CriteriaRowComponent implements OnChanges {
     const selectedCriteriaType = this.criteriaTypes.find(
       (type) => type.id === criteriaTypeId
     );
+    console.log('herere', selectedCriteriaType);
     if (selectedCriteriaType) {
       this.operators = selectedCriteriaType.operators;
       this.valueFieldType = selectedCriteriaType.fieldType || 'text';
     }
+  }
+
+  onRemove(): void {
+    this.remove.emit();
   }
 }

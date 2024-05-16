@@ -1,1 +1,56 @@
- 
+/* Custom CSS for flat button */
+.custom-flat-button {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  color: #fff;
+  background-color: #f24583;
+  border-color: #f24583;
+}
+
+.custom-flat-button:hover {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.custom-flat-button:focus,
+.custom-flat-button.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.custom-flat-button.disabled,
+.custom-flat-button:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.custom-flat-button:not(:disabled):not(.disabled):active,
+.custom-flat-button:not(:disabled):not(.disabled).active,
+.show > .custom-flat-button.dropdown-toggle {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.custom-flat-button:not(:disabled):not(.disabled):active:focus,
+.custom-flat-button:not(:disabled):not(.disabled).active:focus,
+.show > .custom-flat-button.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.remove-icon {
+  transform: scale(1.25);
+}

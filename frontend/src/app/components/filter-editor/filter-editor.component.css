@@ -1,0 +1,9 @@
+.add-button {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+label {
+  font-weight: 500;
+  color: #404040;
+}

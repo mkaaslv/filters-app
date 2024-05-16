@@ -24,10 +24,10 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
         <mat-cell *matCellDef="let filter">
-          <button mat-icon-button color="primary" aria-label="Edit filter" id="editButton{{filter.id}}" (click)="openEditDialog(filter.id)">
+          <button mat-icon-button color="primary" aria-label="Edit filter" id="edit-{{filter.id}}" (click)="openEditDialog(filter.id)" [disabled]="true">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Delete filter" id="deleteButton{{filter.id}}" (click)="deleteRow(filter.id)">
+          <button mat-icon-button color="warn" aria-label="Delete filter" id="delete-{{filter.id}}" (click)="openConfirmPopup(filter.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-cell>

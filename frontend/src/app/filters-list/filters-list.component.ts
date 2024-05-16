@@ -7,22 +7,23 @@ import { Filter } from '../../types';
 import { FiltersService } from '../services/filters.service';
 import { FilterDialogComponent } from '../components/filter-dialog/filter-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmPopupComponent } from '../components/confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'filters-list',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, FilterDialogComponent],
+  imports: [
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    FilterDialogComponent,
+    ConfirmPopupComponent,
+  ],
   templateUrl: './filters-list.component.html',
   styleUrl: './filters-list.component.css',
 })
 export class FiltersListComponent {
-  displayedColumns = [
-    'id',
-    'name',
-    'selection',
-    'modifiedDate',
-    'actions',
-  ];
+  displayedColumns = ['id', 'name', 'selection', 'modifiedDate', 'actions'];
   filters!: Filter[];
   baseUrl: string = 'http://localhost:8080/api/v1';
 
@@ -47,6 +48,23 @@ export class FiltersListComponent {
   openEditDialog(filterId: number) {
     console.log('filterId', filterId);
     this.dialog.open(FilterDialogComponent, { data: { filterId: filterId } });
+  }
+
+  openConfirmPopup(filterId: number): void {
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      width: '25em',
+      height: '12em',
+      data: {
+        title: 'Confirm deletion',
+        message: 'Are you sure you want to delete?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmDelete) => {
+      if (confirmDelete) {
+        this.deleteRow(filterId);
+      }
+    });
   }
 
   deleteRow(filterId: number) {

@@ -7,23 +7,22 @@
   >
     <input type="hidden" formControlName="id" />
     <div class="container">
-      <div class="row">
+      <div class="form-group row">
         <div class="col-md-2">
           <label for="name-field">Filter name</label>
         </div>
-        <div class="col-md-10">
-          <mat-form-field appearance="outline">
-            <input
-              id="name-field"
-              matInput
-              placeholder="Name"
-              formControlName="name"
-            />
-          </mat-form-field>
+        <div class="col-md-3 ps-0">
+          <input
+            type="text"
+            class="form-control"
+            id="name-field"
+            placeholder="Name"
+            formControlName="name"
+          />
         </div>
       </div>
 
-      <div class="row pt-3">
+      <div class="form-group row pt-3">
         <div class="col-md-2">
           <label>Criteria</label>
         </div>
@@ -39,27 +38,11 @@
                     "
                     class="criteria-row"
                   >
-                    <div class="container px-0">
-                      <div class="row">
-                        <div class="col-lg-10 pl-0">
-                          <app-criteria-row
-                            [criteriaForm]="criteria"
-                            [criteriaTypes]="criteriaTypes"
-                          ></app-criteria-row>
-                        </div>
-
-                        <div class="col-lg-2 pr-0">
-                          <button
-                            mat-flat-button
-                            color="warn"
-                            type="button"
-                            (click)="removeCriteria(i)"
-                          >
-                            <mat-icon>remove</mat-icon>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <app-criteria-row
+                      [criteriaForm]="criteria"
+                      [criteriaTypes]="criteriaTypes"
+                      (remove)="removeCriteria(i)"
+                    ></app-criteria-row>
                   </div>
                 </div>
               </div>
@@ -68,8 +51,8 @@
               <div class="col"></div>
               <div class="col">
                 <button
+                  class="add-button"
                   mat-flat-button
-                  color="primary"
                   type="button"
                   (click)="addCriteria()"
                 >
@@ -81,13 +64,13 @@
           </div>
         </div>
       </div>
-      <div class="row pt-3">
+      <div class="form-group row pt-3">
         <div class="col-md-2">
           <label for="selection-id">Selection</label>
         </div>
         <div class="col-md-10">
           <mat-radio-group id="selection-id" formControlName="selection">
-            <mat-radio-button value="1">a</mat-radio-button>
+            <mat-radio-button value="1" color="primary">a</mat-radio-button>
             <mat-radio-button value="2">b</mat-radio-button>
             <mat-radio-button value="3">c</mat-radio-button>
           </mat-radio-group>
