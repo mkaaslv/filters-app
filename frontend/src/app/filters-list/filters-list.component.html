@@ -18,7 +18,7 @@
   
       <ng-container matColumnDef="modifiedDate">
         <mat-header-cell *matHeaderCellDef> Modified date </mat-header-cell>
-        <mat-cell *matCellDef="let filter"> {{filter.modifiedDate}} </mat-cell>
+        <mat-cell *matCellDef="let filter"> {{filter.modifiedDate | timestampToDate}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">

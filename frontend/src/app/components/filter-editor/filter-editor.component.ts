@@ -1,21 +1,18 @@
 import { CommonModule, NgFor } from '@angular/common';
-import {
-  Component, Input,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
   MatFormField,
   MatFormFieldModule,
-  MatLabel
+  MatLabel,
 } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,12 +45,15 @@ import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component'
   styleUrl: './filter-editor.component.css',
 })
 export class FilterEditorComponent {
+  @Input() id?: number;
+  @Output() formInvalid: boolean = false;
+
   filterForm!: FormGroup;
+  filter?: Filter;
+  criteriaCount!: number;
+
   criteriaTypes: CriteriaType[] = [];
   baseUrl: string = 'http://localhost:8080/api/v1';
-  filter?: Filter;
-
-  @Input() id?: number;
 
   constructor(
     private fb: FormBuilder,
@@ -73,11 +73,13 @@ export class FilterEditorComponent {
         criterias: this.fb.array([this.createCriteria()]),
       });
 
+      this.criteriaCount = 1;
+
       return;
     }
 
     if (!this.filter) this.fetchFilter();
-    console.log('this.filter', this.filter);
+
     this.filterForm = this.fb.group({
       id: [this.filter!.id],
       name: [this.filter!.name, Validators.required],
@@ -95,7 +97,8 @@ export class FilterEditorComponent {
         })
       );
     });
-    console.log('form', this.filterForm);
+
+    this.criteriaCount = criteriasArray.length;
   }
 
   getCriteriaControls(formArrayName: string): any[] {
@@ -135,30 +138,38 @@ export class FilterEditorComponent {
   addCriteria(): void {
     const criterias = this.filterForm.get('criterias') as FormArray;
     criterias.push(this.createCriteria());
+    this.criteriaCount = criterias.length;
   }
 
   removeCriteria(index: number): void {
     const criterias = this.filterForm.get('criterias') as FormArray;
     criterias.removeAt(index);
+    this.criteriaCount = criterias.length;
   }
 
   onSubmit(): void {
-    if (this.filterForm.valid) {
-      if (this.filterForm.value.id === '') {
-        // If filterId is empty, remove it from the form group
-        this.filterForm.removeControl('id');
-      }
-      console.log(this.filterForm.value);
+    if (this.filterForm.invalid) {
+      this.formInvalid = true;
+      return;
+    }
 
-      this.filterService.addFilter(`${this.baseUrl}/filters`, this.filterForm.value).subscribe({
+    // Form is valid!
+    if (this.filterForm.value.id === '') {
+      // If filterId is empty, remove it from the form group
+      this.filterForm.removeControl('id');
+    }
+
+    this.filterService
+      .addFilter(`${this.baseUrl}/filters`, this.filterForm.value)
+      .subscribe({
         next: (data) => {
           console.log(data);
           this.dialogRef.close();
+          this.filterService.reloadList();
         },
         error: (error) => {
           console.log(error);
         },
       });
-    }
   }
 }

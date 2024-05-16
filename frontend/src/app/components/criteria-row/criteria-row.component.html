@@ -12,12 +12,6 @@
               {{ type.label }}
             </option>
           </select>
-          <div
-            *ngIf="criteriaForm.get('criteriaType')?.hasError('required')"
-            class="invalid-feedback"
-          >
-            Criteria Type is required
-          </div>
         </div>
       </div>
 
@@ -32,11 +26,8 @@
               {{ op.label }}
             </option>
           </select>
-          <div
-            *ngIf="criteriaForm.get('operator')?.hasError('required')"
-            class="invalid-feedback"
-          >
-            Operator is required
+          <div *ngIf="formInvalid && criteriaForm.controls['operator'].errors" class="text-danger">
+            <p class="error" *ngIf="criteriaForm.controls['operator'].errors['required']">Operator is required.</p>
           </div>
         </div>
       </div>
@@ -50,22 +41,20 @@
             placeholder="Value"
             formControlName="value"
           />
-          <div
-            *ngIf="criteriaForm.get('value')?.hasError('required')"
-            class="invalid-feedback"
-          >
-            Value is required.
+          <div *ngIf="formInvalid && criteriaForm.controls['value'].errors" class="text-danger">
+            <p class="error" *ngIf="criteriaForm.controls['value'].errors['required']">Value is required.</p>
           </div>
         </div>
       </div>
       <div class="col-sm-1 px-0">
         <button
-        class="custom-flat-button"
-        type="button"
-        (click)="onRemove()"
-      >
-        <mat-icon class="remove-icon">remove</mat-icon>
-      </button>
+          class="custom-flat-button"
+          type="button"
+          [disabled]="criteriaCount == 1"
+          (click)="onRemove()"
+        >
+          <mat-icon class="remove-icon">remove</mat-icon>
+        </button>
       </div>
     </div>
   </div>

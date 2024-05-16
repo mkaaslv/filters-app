@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { PaginationParams, Filters, Filter } from '../../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FiltersService {
+  private reloadListSubject: Subject<void> = new Subject<void>();
+  reloadList$: Observable<void> = this.reloadListSubject.asObservable();
+
   constructor(private apiService: ApiService) {}
 
   getFilters = (url: string, params?: PaginationParams): Observable<Filter[]> => {
@@ -31,4 +34,8 @@ export class FiltersService {
   deleteFilter = (url: string): Observable<any> => {
     return this.apiService.delete(url, {});
   };
+
+  reloadList(): void {
+    this.reloadListSubject.next();
+  }
 }

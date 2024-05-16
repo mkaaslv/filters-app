@@ -5,8 +5,6 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioButton } from '@angular/material/radio';
 import { FilterEditorComponent } from '../filter-editor/filter-editor.component';
-import { CdkDrag } from '@angular/cdk/drag-drop';
-import { Filter } from '../../../types';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -17,8 +15,7 @@ import { Filter } from '../../../types';
     MatFormField,
     MatRadioButton,
     MatDialogModule,
-    MatButtonModule,
-    CdkDrag
+    MatButtonModule
   ],
   templateUrl: './filter-dialog.component.html',
   styleUrl: './filter-dialog.component.css',

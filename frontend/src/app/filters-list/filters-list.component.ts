@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,21 +8,26 @@ import { FiltersService } from '../services/filters.service';
 import { FilterDialogComponent } from '../components/filter-dialog/filter-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPopupComponent } from '../components/confirm-popup/confirm-popup.component';
+import { Subscription } from 'rxjs';
+import { TimestampToDatePipe } from '../pipes/timestamp-to-date.pipe';
 
 @Component({
   selector: 'filters-list',
   standalone: true,
+  templateUrl: './filters-list.component.html',
+  styleUrl: './filters-list.component.css',
   imports: [
     MatTableModule,
     MatButtonModule,
     MatIconModule,
     FilterDialogComponent,
     ConfirmPopupComponent,
+    TimestampToDatePipe,
   ],
-  templateUrl: './filters-list.component.html',
-  styleUrl: './filters-list.component.css',
 })
-export class FiltersListComponent {
+export class FiltersListComponent implements OnInit, OnDestroy {
+  private reloadSubscription!: Subscription;
+
   displayedColumns = ['id', 'name', 'selection', 'modifiedDate', 'actions'];
   filters!: Filter[];
   baseUrl: string = 'http://localhost:8080/api/v1';
@@ -34,7 +39,18 @@ export class FiltersListComponent {
   ) {}
 
   ngOnInit() {
+    // Get filters when the component is initialized
     this.fetchFilters();
+
+    // Subscribe to reloadList observable to reload filters when needed
+    this.reloadSubscription = this.filtersService.reloadList$.subscribe(() => {
+      console.log('reload!');
+      this.fetchFilters();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.reloadSubscription.unsubscribe();
   }
 
   fetchFilters() {

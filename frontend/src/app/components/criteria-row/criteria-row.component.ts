@@ -32,6 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class CriteriaRowComponent {
   @Input() criteriaForm!: FormGroup;
   @Input() criteriaTypes: CriteriaType[] = [];
+  @Input() criteriaCount!: number;
+  @Input() formInvalid!: boolean;
   @Output() remove = new EventEmitter<void>();
 
   valueFieldType: string = 'text';

@@ -19,6 +19,9 @@
             placeholder="Name"
             formControlName="name"
           />
+          <div *ngIf="formInvalid && filterForm.controls['name'].errors" class="text-danger">
+            <p class="error" *ngIf="filterForm.controls['name'].errors['required']">Name is required.</p>
+          </div>
         </div>
       </div>
 
@@ -41,6 +44,8 @@
                     <app-criteria-row
                       [criteriaForm]="criteria"
                       [criteriaTypes]="criteriaTypes"
+                      [criteriaCount]="criteriaCount"
+                      [formInvalid]="formInvalid"
                       (remove)="removeCriteria(i)"
                     ></app-criteria-row>
                   </div>
