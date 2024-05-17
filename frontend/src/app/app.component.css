@@ -26,3 +26,10 @@
   .spacer {
     flex: 1;
   }
+
+.non-modal {
+  border-color: #5EBECD;
+  border-radius: 8px;
+  border-width: 2px;
+  border-style: solid;
+}

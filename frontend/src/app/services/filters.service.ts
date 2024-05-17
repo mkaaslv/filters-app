@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, Subject } from 'rxjs';
-import { PaginationParams, Filters, Filter } from '../../types';
+import { Filter } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +12,8 @@ export class FiltersService {
 
   constructor(private apiService: ApiService) {}
 
-  getFilters = (url: string, params?: PaginationParams): Observable<Filter[]> => {
-    return this.apiService.get(url, {
-      params,
-      responseType: 'json',
-    });
+  getFilters = (url: string): Observable<Filter[]> => {
+    return this.apiService.get(url, {});
   };
 
   getFilter = (url: string): Observable<Filter> => {

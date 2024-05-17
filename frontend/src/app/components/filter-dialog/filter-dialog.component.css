@@ -3,14 +3,16 @@
   color: white;
 }
 
-.close-button {
-  position: absolute;
-  top: 0.05rem;
-  right: 0.25rem;
+.actions {
+  display: flex;
+  align-items: center;
   color: white;
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #5ebecd;
 }
 
@@ -19,11 +21,23 @@
   font-weight: 500;
 }
 
-.footer {
-  background-color: #f2f2f2;
-  text-align: center;
+.non-footer {
+  text-align: right !important;
+  position: relative;
 }
 
-.close-icon {
+.footer {
+  background-color: #f2f2f2;
+  text-align: center !important;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
+
+.dialog-icon {
   transform: scale(1.25);
+}
+
+.mat-mdc-dialog-content {
+  max-height: 100vh !important;
 }

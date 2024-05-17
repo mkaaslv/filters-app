@@ -3,13 +3,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Filter } from '../../types';
-import { FiltersService } from '../services/filters.service';
-import { FilterDialogComponent } from '../components/filter-dialog/filter-dialog.component';
+import { Filter } from '../../../types';
+import { FiltersService } from '../../services/filters.service';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmPopupComponent } from '../components/confirm-popup/confirm-popup.component';
+import { ConfirmPopupComponent } from '../confirm-popup/confirm-popup.component';
 import { Subscription } from 'rxjs';
-import { TimestampToDatePipe } from '../pipes/timestamp-to-date.pipe';
+import { TimestampToDatePipe } from '../../pipes/timestamp-to-date.pipe';
 
 @Component({
   selector: 'filters-list',

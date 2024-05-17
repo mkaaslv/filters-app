@@ -32,3 +32,21 @@ body {
   margin-right: 1em;
   width: 12em;
 }
+
+.resizable-mat-dialog-panel { 
+  resize: vertical;
+  overflow: auto;
+  min-height: 23em;
+  position: absolute !important;
+}
+
+.non-modal-dialog{
+  padding: 0 !important;
+  box-shadow: none !important; 
+  border: #797979;
+  border-radius: 8px !important;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-elevation: none !important;
+}

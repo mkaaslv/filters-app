@@ -27,18 +27,10 @@ export interface Options {
     | boolean;
 }
 
-export interface Filters {
-  items: Filter[];
-  total: number;
-  pageNumber: number;
-  perPage: number;
-  totalPages: number;
-}
-
 export interface Filter {
   id?: number;
   name: string;
-  selection: number;
+  selection: string;
   criterias: Criteria[];
   modifiedDate: string;
 }
@@ -61,14 +53,4 @@ export interface CriteriaType {
 export interface Operator {
   operator: string;
   label: string;
-}
-
-export interface PaginationParams {
-  [param: string]:
-    | string
-    | number
-    | boolean
-    | ReadonlyArray<string | number | boolean>;
-  pageNumber: number;
-  perPage: number;
 }

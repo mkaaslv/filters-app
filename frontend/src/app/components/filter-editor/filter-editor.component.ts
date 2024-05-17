@@ -69,7 +69,7 @@ export class FilterEditorComponent {
       this.filterForm = this.fb.group({
         id: [''],
         name: ['', Validators.required],
-        selection: ['1', Validators.required],
+        selection: ['a', Validators.required],
         criterias: this.fb.array([this.createCriteria()]),
       });
 

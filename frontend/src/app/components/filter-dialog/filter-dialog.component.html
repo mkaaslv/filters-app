@@ -1,28 +1,57 @@
-<div class="header p-2">
+<div *ngIf="openModal" class="header p-2">
   <h4 class="dialog-title">Filter</h4>
+  <div class="actions">
+  <button mat-icon-button (click)="emitOpenNonModal(true)" aria-label="Open non-modal">
+    <mat-icon class="dialog-icon">arrow_downward</mat-icon>
+  </button>
   <button
-    class="close-button"
     mat-icon-button
     mat-dialog-close
     aria-label="Close"
   >
-    <mat-icon class="close-icon">close</mat-icon>
+    <mat-icon class="dialog-icon">close</mat-icon>
   </button>
+  </div>
 </div>
 <div mat-dialog-content class="content">
-  <app-filter-editor [id]="filterId"></app-filter-editor>
+    <app-filter-editor [id]="filterId"></app-filter-editor>
 </div>
-<div class="footer p-3">
-  <button class="cancel-btn btn" mat-dialog-close mat-flat-button type="button">
-    CANCEL
-  </button>
+
+<div *ngIf="openModal" class="footer p-3">
+    <button
+      class="cancel-btn btn"
+      mat-dialog-close
+      mat-flat-button
+      type="button"
+    >
+      CANCEL
+    </button>
+    <button
+      class="btn"
+      form="filterFormId"
+      mat-flat-button
+      type="submit"
+      color="primary"
+    >
+      SAVE
+    </button>
+</div>
+<div *ngIf="!openModal" class="non-footer p-3">
   <button
-    class="btn"
-    form="filterFormId"
-    mat-flat-button
-    type="submit"
-    color="primary"
-  >
-    SAVE
-  </button>
+  class="cancel-btn btn"
+  mat-dialog-close
+  mat-flat-button
+  type="button"
+>
+  CANCEL
+</button>
+<button
+  class="btn"
+  form="filterFormId"
+  mat-flat-button
+  type="submit"
+  color="primary"
+>
+  SAVE
+</button>
 </div>

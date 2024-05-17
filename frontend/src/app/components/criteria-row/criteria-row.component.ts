@@ -56,7 +56,7 @@ export class CriteriaRowComponent {
     const selectedCriteriaType = this.criteriaTypes.find(
       (type) => type.id === criteriaTypeId
     );
-    console.log('herere', selectedCriteriaType);
+
     if (selectedCriteriaType) {
       this.operators = selectedCriteriaType.operators;
       this.valueFieldType = selectedCriteriaType.fieldType || 'text';
