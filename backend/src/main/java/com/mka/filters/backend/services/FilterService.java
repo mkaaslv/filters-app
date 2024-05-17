@@ -4,22 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// import com.mka.filters.backend.dtos.criteria.CriteriaDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import com.mka.filters.backend.dtos.filter.FilterCreationDto;
 import com.mka.filters.backend.dtos.filter.FilterDto;
 import com.mka.filters.backend.entities.Criteria;
 import com.mka.filters.backend.entities.Filter;
 import com.mka.filters.backend.exceptions.NotFoundException;
-// import com.mka.filters.backend.mappers.CriteriaMapper;
 import com.mka.filters.backend.mappers.FilterMapper;
 import com.mka.filters.backend.repositories.CriteriaRepository;
 import com.mka.filters.backend.repositories.FilterRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,9 +29,6 @@ public class FilterService implements IFilterService {
     FilterMapper              filterMapper;
     @Autowired
     CriteriaRepository        criteriaDao;
-
-    // @Autowired
-    // CriteriaMapper            criteriaMapper;
 
     public List<FilterDto> allFilters() {
         List<Filter> allFilters = filterDao.findAll();
@@ -85,16 +78,4 @@ public class FilterService implements IFilterService {
             }
         );
     }
-
-    @Override
-    public Page<FilterDto> findPaginated(int page, int size) {
-        Page<Filter> filterPage = filterDao.findAll(PageRequest.of(page, size));
-        Page<FilterDto> filterDtoPage = filterPage.map(filter -> {
-            FilterDto dto = filterMapper.toDto(filter);
-            return dto;
-        });
-        
-        return filterDtoPage;
-    }
-    
 }

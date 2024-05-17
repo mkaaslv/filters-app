@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -36,7 +37,8 @@ import lombok.Setter;
 public class Filter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "filter_seq")
+    @SequenceGenerator(name = "filter_seq", sequenceName = "filter_id_seq", allocationSize = 1)
     private Long id;
     
     @Column
@@ -45,7 +47,7 @@ public class Filter {
 
     @Column
     @Nullable
-    private int selection;
+    private String selection;
 
     @OneToMany(mappedBy = "filter", cascade = CascadeType.ALL)
     private List<Criteria> criterias;

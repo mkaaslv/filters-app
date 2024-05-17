@@ -24,7 +24,7 @@ public class FilterDto {
     
     private String name;
 
-    private int selection;
+    private String selection;
 
     private List<CriteriaDto> criterias;
 
