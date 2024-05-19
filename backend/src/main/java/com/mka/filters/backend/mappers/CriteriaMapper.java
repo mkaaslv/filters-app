@@ -6,6 +6,8 @@ import com.mka.filters.backend.dtos.criteria.CriteriaCreationDto;
 import com.mka.filters.backend.dtos.criteria.CriteriaDto;
 import com.mka.filters.backend.entities.Criteria;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -31,4 +33,8 @@ public interface CriteriaMapper extends IBaseMapper<Criteria, CriteriaDto> {
     @Override
     @Mapping(target = "filter", ignore = true)
     CriteriaDto toDto(Criteria criteria);
+
+    @Mapping(target = "filter", ignore = true)
+    @Mapping(target = "createdDate", ignore = true)
+    List<Criteria> toEntityList(List<CriteriaDto> dtoList);
 }

@@ -11,5 +11,8 @@ public interface IBaseMapper<MDL, DTO> {
     MDL toEntity(DTO dto);
 
     @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
-    List<DTO> toDtoList(List<MDL> dtoList);
+    List<DTO> toDtoList(List<MDL> entityList);
+
+    @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL)
+    List<MDL> toEntityList(List<DTO> dtoList);
 }

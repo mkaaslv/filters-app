@@ -1,6 +1,5 @@
 package com.mka.filters.backend.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,8 @@ import com.mka.filters.backend.dtos.filter.FilterDto;
 import com.mka.filters.backend.entities.Criteria;
 import com.mka.filters.backend.entities.Filter;
 import com.mka.filters.backend.exceptions.NotFoundException;
+import com.mka.filters.backend.mappers.CriteriaMapper;
 import com.mka.filters.backend.mappers.FilterMapper;
-import com.mka.filters.backend.repositories.CriteriaRepository;
 import com.mka.filters.backend.repositories.FilterRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,8 @@ public class FilterService implements IFilterService {
     @Autowired
     FilterMapper              filterMapper;
     @Autowired
-    CriteriaRepository        criteriaDao;
+    CriteriaMapper            criteriaMapper;
+
 
     public List<FilterDto> allFilters() {
         List<Filter> allFilters = filterDao.findAll();
@@ -44,25 +44,34 @@ public class FilterService implements IFilterService {
 
     public FilterDto addFilter(FilterCreationDto newFilterDto) {
         Filter filter = filterMapper.toEntity(newFilterDto);
-        List<Criteria> criteriaList = filter.getCriterias();
 
-        filter.setCriterias(new ArrayList<>());
-        Filter createdFilter = filterDao.save(filter);
-        
-        List<Criteria> createdCriterias = new ArrayList<>();
-        for (Criteria criteria : criteriaList) {
-            criteria.setFilter(createdFilter);
-            Criteria createdCriteria = criteriaDao.save(criteria);
-            createdCriterias.add(createdCriteria);
+        // Set filter refrence to criteria
+        for (Criteria criteria : filter.getCriterias()) {
+            criteria.setFilter(filter);
         }
 
-        createdFilter.setCriterias(createdCriterias);
+        // Create filter (will cascade save the criteria)
+        Filter createdFilter = filterDao.save(filter);
         return filterMapper.toDto(createdFilter);
     }
 
-    public FilterDto updateFilter(FilterDto filterDto) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public FilterDto updateFilter(Long id, FilterDto filterDto) {
+        Filter filter = filterDao.findById(id).orElseThrow(()-> new IllegalStateException("No filter found for id: " + id));
+
+        // Set filter refrence to criteria
+        List<Criteria> updatedCriterias = criteriaMapper.toEntityList(filterDto.getCriterias());
+        for (Criteria criteria : updatedCriterias) {
+            criteria.setFilter(filter);
+        }
+
+        // Clear existing and set new criterias
+        filter.getCriterias().clear();
+        filter.getCriterias().addAll(updatedCriterias);
+
+        // Update filter fields and save
+        filterMapper.updateFilterFromDto(filterDto, filter);
+        Filter updatedFilter = filterDao.save(filter);
+        return filterMapper.toDto(updatedFilter);
     }
 
     public void deleteFilter(Long id) {

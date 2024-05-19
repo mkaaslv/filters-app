@@ -65,9 +65,15 @@ public class FilterController {
 
 
     @PutMapping("/filters/{id}")
-    public ResponseEntity<FilterDto> updateFilter(@RequestBody FilterDto filterDto) {
-        FilterDto updatedFilter = filterService.updateFilter(filterDto);
-        return ResponseEntity.ok(updatedFilter);
+    public ResponseEntity<FilterDto> updateFilter(@PathVariable("id") Long id, @RequestBody FilterDto filterDto) {
+        try {
+            FilterDto updatedFilter = filterService.updateFilter(id, filterDto);
+            return ResponseEntity.ok(updatedFilter);
+        } catch (IllegalStateException | IllegalArgumentException i) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

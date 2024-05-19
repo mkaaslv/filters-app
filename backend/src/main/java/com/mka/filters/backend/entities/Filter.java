@@ -12,6 +12,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,7 +50,7 @@ public class Filter {
     @Nullable
     private String selection;
 
-    @OneToMany(mappedBy = "filter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "filter", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Criteria> criterias;
     
     @Column(name = "created_date", nullable = false, updatable = false)

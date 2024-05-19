@@ -14,7 +14,7 @@ public interface IFilterService {
 
     public FilterDto addFilter(FilterCreationDto newFilterDto);
 
-    public FilterDto updateFilter(FilterDto filterDto);
+    public FilterDto updateFilter(Long id, FilterDto filterDto);
 
     public void deleteFilter(Long id);
 }
